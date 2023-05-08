@@ -1,5 +1,7 @@
-import { MagnifyingGlass, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { MagnifyingGlass, Plus } from "@phosphor-icons/react";
+import { NewTransactionModal } from "./NewTransactionModal";
 
 export const Header = () => {
    const [inputValue, setInputValue] = useState("");
@@ -24,9 +26,15 @@ export const Header = () => {
                <MagnifyingGlass size={20} weight="bold" />
             </button>
          </div>
-         <button className="flex items-center gap-2 p-3 px-4 text-gray-100 bg-indigo-800 rounded-lg">
-            <Plus size={18} weight="bold" />
-         </button>
+         <Dialog.Root>
+            <Dialog.Trigger>
+               <button className="flex items-center gap-2 p-3 px-4 text-gray-100 bg-indigo-800 rounded-lg">
+                  <Plus size={18} weight="bold" />
+               </button>
+            </Dialog.Trigger>
+
+            <NewTransactionModal />
+         </Dialog.Root>
       </div>
    );
 };
