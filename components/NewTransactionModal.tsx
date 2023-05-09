@@ -12,8 +12,8 @@ export const NewTransactionModal = () => {
 
    return (
       <Dialog.Portal>
-         <Dialog.Overlay className="absolute inset-0 bg-black/50" />
-         <Dialog.Content className="absolute w-1/3 p-5 text-indigo-900 -translate-x-1/2 -translate-y-1/2 bg-gray-100 rounded-lg top-1/2 left-1/2">
+         <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+         <Dialog.Content className="absolute p-5 text-indigo-900 bg-gray-100 rounded-lg w-[91%] md:w-2/3 lg:w-1/3 position-middle">
             <div className="flex items-center justify-between">
                <Dialog.Title className="text-lg font-bold">
                   New Transaction

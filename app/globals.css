@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+   .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+   }
+   .scrollbar-hiddden {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+   }
+   .position-middle {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+}

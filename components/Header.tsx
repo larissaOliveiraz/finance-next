@@ -8,7 +8,7 @@ export const Header = () => {
    const [focused, setFocused] = useState(false);
 
    return (
-      <div className="flex gap-3 p-3">
+      <div className="flex gap-3">
          <div
             className={`p-2 flex flex-1 items-center bg-white border  rounded-lg ${
                focused ? "border-indigo-800" : "border-gray-300"
@@ -27,10 +27,8 @@ export const Header = () => {
             </button>
          </div>
          <Dialog.Root>
-            <Dialog.Trigger>
-               <button className="flex items-center gap-2 p-3 px-4 text-gray-100 bg-indigo-800 rounded-lg">
-                  <Plus size={18} weight="bold" />
-               </button>
+            <Dialog.Trigger className="flex items-center gap-2 p-3 px-4 text-gray-100 bg-indigo-800 rounded-lg">
+               <Plus size={18} weight="bold" />
             </Dialog.Trigger>
 
             <NewTransactionModal />
