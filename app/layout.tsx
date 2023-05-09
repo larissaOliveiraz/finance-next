@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Nunito } from "next/font/google";
+import { TransactionContextProvider } from "@/context/TransactionContext";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
    return (
       <html lang="en">
-         <body className={font.className}>{children}</body>
+         <body className={font.className}>
+            <TransactionContextProvider>{children}</TransactionContextProvider>
+         </body>
       </html>
    );
 }

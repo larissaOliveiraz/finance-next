@@ -1,28 +1,23 @@
-import { useState } from "react";
-import useApi from "@/hooks/useApi";
+import { useContext, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowDown, ArrowUp, X } from "@phosphor-icons/react";
 import { Input } from "./Input";
+import { TransactionContext } from "@/context/TransactionContext";
 
 export const NewTransactionModal = () => {
+   const { createTransaction } = useContext(TransactionContext);
+
    const [title, setTitle] = useState("");
    const [category, setCategory] = useState("");
-   const [activeType, setActiveType] = useState<"income" | "outcome">("income");
+   const [type, setType] = useState<"income" | "outcome">("income");
    const [amount, setAmount] = useState(0);
 
-   const api = useApi();
-
-   const createTransaction = () => {
-      api.createTransaction({
-         title,
-         category,
-         type: activeType,
-         amount,
-      });
+   const handleCreateNewTransaction = () => {
+      createTransaction({ title, category, type, amount });
       setTitle("");
       setCategory("");
+      setType("income");
       setAmount(0);
-      setActiveType("income");
    };
 
    return (
@@ -48,9 +43,9 @@ export const NewTransactionModal = () => {
 
                <div className="flex w-full gap-3">
                   <div
-                     onClick={() => setActiveType("income")}
+                     onClick={() => setType("income")}
                      className={`${
-                        activeType === "income"
+                        type === "income"
                            ? "bg-green-600 text-white font-bold"
                            : "bg-gray-300"
                      }  flex-1 p-4 rounded-lg flex gap-2 cursor-pointer text-gray-600 items-center justify-center`}
@@ -58,9 +53,9 @@ export const NewTransactionModal = () => {
                      <ArrowUp weight="bold" /> Income
                   </div>
                   <div
-                     onClick={() => setActiveType("outcome")}
+                     onClick={() => setType("outcome")}
                      className={`${
-                        activeType === "outcome"
+                        type === "outcome"
                            ? "bg-red-500 text-white font-bold"
                            : "bg-gray-300"
                      } p-4 flex-1 flex gap-2 rounded-lg cursor-pointer text-gray-600 items-center justify-center`}
@@ -69,13 +64,12 @@ export const NewTransactionModal = () => {
                   </div>
                </div>
 
-               <button
-                  type="button"
-                  onClick={createTransaction}
+               <Dialog.Close
+                  onClick={handleCreateNewTransaction}
                   className="w-full p-3 text-gray-100 transition-all bg-indigo-800 rounded-lg hover:bg-indigo-600"
                >
                   Create
-               </button>
+               </Dialog.Close>
             </form>
          </Dialog.Content>
       </Dialog.Portal>
