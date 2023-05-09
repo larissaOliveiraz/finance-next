@@ -33,7 +33,12 @@ export const NewTransactionModal = () => {
                </Dialog.Close>
             </div>
             <form className="mt-5 space-y-5">
-               <Input placeholder="Name" value={title} setValue={setTitle} />
+               <Input
+                  placeholder="Name"
+                  value={title}
+                  setValue={setTitle}
+                  autofocus
+               />
                <Input
                   placeholder="Category"
                   value={category}

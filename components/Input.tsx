@@ -4,9 +4,10 @@ type Props = {
    placeholder: string;
    value: string | number;
    setValue: (value: any) => void;
+   autofocus?: boolean;
 };
 
-export const Input = ({ placeholder, value, setValue }: Props) => {
+export const Input = ({ placeholder, value, setValue, autofocus }: Props) => {
    const [focused, setFocused] = useState(false);
 
    return (
@@ -23,6 +24,7 @@ export const Input = ({ placeholder, value, setValue }: Props) => {
             onBlur={() => setFocused(false)}
             placeholder={placeholder}
             className="flex-1 outline-none"
+            autoFocus={autofocus ? true : false}
          />
       </div>
    );
