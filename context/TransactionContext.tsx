@@ -17,7 +17,7 @@ export const TransactionContext = createContext<TransactionType>(
 
 export const TransactionContextProvider = ({ children }: Props) => {
    const storage = localStorage.getItem("transactions");
-   const initialState = storage && JSON.parse(storage);
+   const initialState: Transaction[] = storage && JSON.parse(storage);
 
    const [transactions, setTransactions] =
       useState<Transaction[]>(initialState);

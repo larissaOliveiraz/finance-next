@@ -13,6 +13,7 @@ export const TransactionTable = () => {
             <tbody className="w-full space-y-2 overflow-y-auto">
                {transactions?.map((item: Transaction) => (
                   <tr
+                     key={item.title}
                      className={`flex gap-8 p-3 border rounded-lg ${
                         item.type === "income"
                            ? "bg-emerald-50 border-emerald-600"

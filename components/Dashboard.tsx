@@ -1,7 +1,13 @@
 "use client";
+import { TransactionContext } from "@/context/TransactionContext";
+import { useFormatter } from "@/hooks/useFormatter";
+import { useSumTransactions } from "@/hooks/useSumTransactions";
 import { ArrowDown, ArrowUp, PiggyBank } from "@phosphor-icons/react";
 
 export const Dashboard = () => {
+   const transactionSum = useSumTransactions();
+   const formatter = useFormatter();
+
    return (
       <section className="flex w-full gap-3 p-4 overflow-x-auto lg:p-0 md:justify-center scrollbar-hidden lg:block lg:space-y-4">
          {/* INCOME CARD */}
@@ -10,7 +16,11 @@ export const Dashboard = () => {
                <ArrowUp size={24} weight="bold" />
                <h2 className="text-2xl font-semibold">Income</h2>
             </div>
-            <p className="text-3xl">$ 2000</p>
+            <p className="text-3xl">
+               {formatter.priceFormatter(
+                  transactionSum ? transactionSum.income : 0
+               )}
+            </p>
          </div>
 
          {/* OUTCOME CARD */}
@@ -19,7 +29,11 @@ export const Dashboard = () => {
                <ArrowDown size={24} weight="bold" />
                <h2 className="text-2xl font-semibold">Outcome</h2>
             </div>
-            <p className="text-3xl">$ 500</p>
+            <p className="text-3xl">
+               {formatter.priceFormatter(
+                  transactionSum ? transactionSum.outcome : 0
+               )}
+            </p>
          </div>
 
          {/* TOTAL CARD */}
@@ -28,7 +42,11 @@ export const Dashboard = () => {
                <PiggyBank size={24} weight="bold" />
                <h2 className="text-2xl font-semibold">Total</h2>
             </div>
-            <p className="text-3xl">$ 1500</p>
+            <p className="text-3xl">
+               {formatter.priceFormatter(
+                  transactionSum ? transactionSum.total : 0
+               )}
+            </p>
          </div>
       </section>
    );
