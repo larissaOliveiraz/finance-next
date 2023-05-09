@@ -38,10 +38,8 @@ export default function Home() {
                               }`}
                            >
                               <td className="flex-1">{item.title}</td>
-                              <td className="min-w-[50px]">
-                                 {item.description}
-                              </td>
-                              <td className="min-w-[50px]">{item.total}</td>
+                              <td className="min-w-[50px]">{item.category}</td>
+                              <td className="min-w-[50px]">{item.amount}</td>
                               <td className="flex items-center text-gray-600 hover:text-red-600">
                                  <Trash size={22} weight="fill" />
                               </td>

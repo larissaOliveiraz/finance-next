@@ -1,14 +1,29 @@
-import { ArrowDown, ArrowUp, X } from "@phosphor-icons/react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Input } from "./Input";
 import { useState } from "react";
+import useApi from "@/hooks/useApi";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ArrowDown, ArrowUp, X } from "@phosphor-icons/react";
+import { Input } from "./Input";
 
 export const NewTransactionModal = () => {
-   const [name, setName] = useState("");
+   const [title, setTitle] = useState("");
    const [category, setCategory] = useState("");
    const [activeType, setActiveType] = useState<"income" | "outcome">("income");
+   const [amount, setAmount] = useState(0);
 
-   const createTransaction = () => {};
+   const api = useApi();
+
+   const createTransaction = () => {
+      api.createTransaction({
+         title,
+         category,
+         type: activeType,
+         amount,
+      });
+      setTitle("");
+      setCategory("");
+      setAmount(0);
+      setActiveType("income");
+   };
 
    return (
       <Dialog.Portal>
@@ -23,12 +38,13 @@ export const NewTransactionModal = () => {
                </Dialog.Close>
             </div>
             <form className="mt-5 space-y-5">
-               <Input placeholder="Name" value={name} setValue={setName} />
+               <Input placeholder="Name" value={title} setValue={setTitle} />
                <Input
                   placeholder="Category"
                   value={category}
                   setValue={setCategory}
                />
+               <Input placeholder="Total" value={amount} setValue={setAmount} />
 
                <div className="flex w-full gap-3">
                   <div

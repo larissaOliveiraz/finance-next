@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 type Props = {
    placeholder: string;
-   value: string;
-   setValue: (value: string) => void;
+   value: string | number;
+   setValue: (value: any) => void;
 };
 
 export const Input = ({ placeholder, value, setValue }: Props) => {
