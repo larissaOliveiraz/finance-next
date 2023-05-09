@@ -9,6 +9,7 @@ type Props = {
 type TransactionType = {
    transactions: Transaction[];
    createTransaction: (newTransaction: Transaction) => void;
+   deleteTransaction: (trasaction: Transaction) => void;
 };
 
 export const TransactionContext = createContext<TransactionType>(
@@ -34,8 +35,18 @@ export const TransactionContextProvider = ({ children }: Props) => {
       setTransactions(transactionList);
    };
 
+   const deleteTransaction = (transaction: Transaction) => {
+      const newTransactionList = transactions.filter(
+         (item) => item !== transaction
+      );
+      localStorage.setItem("transactions", JSON.stringify(newTransactionList));
+      setTransactions(newTransactionList);
+   };
+
    return (
-      <TransactionContext.Provider value={{ transactions, createTransaction }}>
+      <TransactionContext.Provider
+         value={{ transactions, createTransaction, deleteTransaction }}
+      >
          {children}
       </TransactionContext.Provider>
    );

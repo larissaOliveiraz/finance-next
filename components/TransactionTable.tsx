@@ -6,7 +6,7 @@ import { Trash } from "@phosphor-icons/react";
 import React, { useContext } from "react";
 
 export const TransactionTable = () => {
-   const { transactions } = useContext(TransactionContext);
+   const { transactions, deleteTransaction } = useContext(TransactionContext);
    const formatter = useFormatter();
 
    return (
@@ -27,7 +27,10 @@ export const TransactionTable = () => {
                      <td className="min-w-[50px]">
                         {formatter.priceFormatter(item.amount)}
                      </td>
-                     <td className="flex items-center text-gray-600 hover:text-red-600">
+                     <td
+                        onClick={() => deleteTransaction(item)}
+                        className="flex items-center text-gray-600 hover:text-red-600"
+                     >
                         <Trash size={22} weight="fill" />
                      </td>
                   </tr>
