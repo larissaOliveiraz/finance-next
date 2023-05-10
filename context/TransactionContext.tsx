@@ -8,7 +8,6 @@ type Props = {
 
 type TransactionType = {
    transactions: Transaction[];
-   filteredList: Transaction[];
    createTransaction: (newTransaction: Transaction) => void;
    deleteTransaction: (trasaction: Transaction) => void;
    searchTransaction: (value: string) => void;
@@ -24,8 +23,6 @@ export const TransactionContextProvider = ({ children }: Props) => {
 
    const [transactions, setTransactions] =
       useState<Transaction[]>(initialState);
-   const [filteredList, setFilteredList] =
-      useState<Transaction[]>(transactions);
 
    const createTransaction = (newTransaction: Transaction) => {
       let transactionList: Transaction[] = [];
@@ -68,14 +65,12 @@ export const TransactionContextProvider = ({ children }: Props) => {
             tableRow[i].style.display = "none";
          }
       }
-      setFilteredList(filteredData);
    };
 
    return (
       <TransactionContext.Provider
          value={{
             transactions,
-            filteredList,
             createTransaction,
             deleteTransaction,
             searchTransaction,
