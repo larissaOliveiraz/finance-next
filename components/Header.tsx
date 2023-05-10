@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, KeyboardEvent, useContext, useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Coins, MagnifyingGlass, Plus, X } from "@phosphor-icons/react";
 import { NewTransactionModal } from "./NewTransactionModal";
+import { TransactionContext } from "@/context/TransactionContext";
 
 export const Header = () => {
+   const { searchTransaction } = useContext(TransactionContext);
+
    const [inputValue, setInputValue] = useState("");
    const [focused, setFocused] = useState(false);
    const [showInput, setShowInput] = useState(false);
+
+   const handleCloseSearch = () => {
+      setInputValue("");
+      setShowInput(false);
+   };
+
+   useEffect(() => {
+      searchTransaction(inputValue);
+   }, [inputValue]);
 
    return (
       <div className="flex gap-3 justify-between">
@@ -30,11 +42,12 @@ export const Header = () => {
                      onChange={(e) => setInputValue(e.target.value)}
                      onFocus={() => setFocused(true)}
                      onBlur={() => setFocused(false)}
+                     autoFocus
                      className="flex-1 outline-none ml-2"
                   />
                   <button
                      type="button"
-                     onClick={() => setShowInput(false)}
+                     onClick={handleCloseSearch}
                      className="p-1 text-indigo-800 hover:scale-105"
                   >
                      <X size={20} />

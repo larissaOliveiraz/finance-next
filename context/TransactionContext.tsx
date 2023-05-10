@@ -8,8 +8,10 @@ type Props = {
 
 type TransactionType = {
    transactions: Transaction[];
+   filteredList: Transaction[];
    createTransaction: (newTransaction: Transaction) => void;
    deleteTransaction: (trasaction: Transaction) => void;
+   searchTransaction: (value: string) => void;
 };
 
 export const TransactionContext = createContext<TransactionType>(
@@ -22,6 +24,8 @@ export const TransactionContextProvider = ({ children }: Props) => {
 
    const [transactions, setTransactions] =
       useState<Transaction[]>(initialState);
+   const [filteredList, setFilteredList] =
+      useState<Transaction[]>(transactions);
 
    const createTransaction = (newTransaction: Transaction) => {
       let transactionList: Transaction[] = [];
@@ -43,9 +47,39 @@ export const TransactionContextProvider = ({ children }: Props) => {
       setTransactions(newTransactionList);
    };
 
+   const searchTransaction = async (value: string) => {
+      let tableRow = document.getElementsByClassName(
+         "row"
+      ) as HTMLCollectionOf<HTMLElement>;
+      let filteredData: Transaction[] = [];
+
+      for (let i in transactions) {
+         const transactionTitle = transactions[i].title.toLowerCase();
+         const transactionCategory = transactions[i].category.toLowerCase();
+         const valueInput = value.toLowerCase();
+
+         if (
+            transactionTitle.indexOf(valueInput) > -1 ||
+            transactionCategory.indexOf(valueInput) > -1
+         ) {
+            tableRow[i].style.display = "";
+            filteredData.push(transactions[i]);
+         } else {
+            tableRow[i].style.display = "none";
+         }
+      }
+      setFilteredList(filteredData);
+   };
+
    return (
       <TransactionContext.Provider
-         value={{ transactions, createTransaction, deleteTransaction }}
+         value={{
+            transactions,
+            filteredList,
+            createTransaction,
+            deleteTransaction,
+            searchTransaction,
+         }}
       >
          {children}
       </TransactionContext.Provider>
