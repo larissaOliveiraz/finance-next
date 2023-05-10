@@ -28,9 +28,9 @@ export const TransactionContextProvider = ({ children }: Props) => {
       let transactionList: Transaction[] = [];
 
       for (let i in transactions) {
-         transactionList.push(transactions[i]);
+         transactionList.unshift(transactions[i]);
       }
-      transactionList.push(newTransaction);
+      transactionList.unshift(newTransaction);
 
       localStorage.setItem("transactions", JSON.stringify(transactionList));
       setTransactions(transactionList);
