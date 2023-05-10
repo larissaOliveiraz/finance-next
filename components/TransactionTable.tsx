@@ -13,28 +13,29 @@ export const TransactionTable = () => {
       <div className="lg:h-[380px] md:h-[450px] overflow-auto scrollbar-hidden mt-4">
          <table className="w-full table-auto">
             <tbody className="w-full space-y-2 overflow-y-auto">
-               {transactions?.map((item: Transaction) => (
-                  <tr
-                     key={item.title}
-                     className={`flex gap-8 p-3 border row rounded-lg ${
-                        item.type === "income"
-                           ? "bg-emerald-50 border-emerald-600"
-                           : "bg-red-50 border-red-600"
-                     }`}
-                  >
-                     <td className="flex-1">{item.title}</td>
-                     <td className="min-w-[50px]">{item.category}</td>
-                     <td className="min-w-[50px]">
-                        {formatter.priceFormatter(item.amount)}
-                     </td>
-                     <td
-                        onClick={() => deleteTransaction(item)}
-                        className="flex items-center text-gray-600 hover:text-red-600"
+               {transactions &&
+                  transactions.map((item: Transaction) => (
+                     <tr
+                        key={item.title}
+                        className={`flex gap-8 p-3 border row rounded-lg ${
+                           item.type === "income"
+                              ? "bg-emerald-50 border-emerald-600"
+                              : "bg-red-50 border-red-600"
+                        }`}
                      >
-                        <Trash size={22} weight="fill" />
-                     </td>
-                  </tr>
-               ))}
+                        <td className="flex-1">{item.title}</td>
+                        <td className="min-w-[50px]">{item.category}</td>
+                        <td className="min-w-[50px]">
+                           {formatter.priceFormatter(item.amount)}
+                        </td>
+                        <td
+                           onClick={() => deleteTransaction(item)}
+                           className="flex items-center text-gray-600 hover:text-red-600"
+                        >
+                           <Trash size={22} weight="fill" />
+                        </td>
+                     </tr>
+                  ))}
             </tbody>
          </table>
       </div>
